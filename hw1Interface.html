@@ -1,0 +1,141 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Elevator Interface</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script type ="text/javascript" src = "hw1.js"></script>
+    <link rel = "stylesheet" href="style.css">
+</head>
+
+<body>
+    <div ng-app="myApp" style="background-color:black;">
+        <div ng-controller="ctrl1">
+            <div ng-hide="disableScreen">
+                <div class="row">
+                    <div class="col-sm-2 col-md-2">
+                        <button ng-hide="hideLow" ng-click="lowerFloor()" class="btn">Lower Floors<br /><span class="glyphicon glyphicon-chevron-down"></span></button>
+                    </div>
+                    <div class="col-sm-8 col-md-8">
+                        <h1 style="text-align:center;color:white;">{{selectedFloors | selectedFloors}}</h1>
+                    </div>
+                    <div class="col-sm-2 col-md-2">
+                        <button ng-hide="hideUp" ng-click="upperFloor()" class="btn">Upper Floors<br /><span class="glyphicon glyphicon-chevron-up"></span></button>
+                    </div>
+
+                </div>
+
+
+
+
+                <!--
+        Floors
+    -->
+                <div ng-repeat="f in floorLst.slice().reverse() track by $index">
+                    <div class="row" style="line-height:45px;">
+                        <div class="col-sm-1 col-md-1"></div>
+                        <!-- Left column -->
+                        <div class="col-sm-5 col-md-5">
+                            <button ng-click='addFloor(f.left.row, f.left.floor)' ng-hide='f.left.checked' class="btn btn-default" style="line-height:35px;">{{f.left.floor}}<br /> </button>
+                            <button ng-click='removeFloor(f.left.row, f.left.floor)' ng-show='f.left.checked' class="btn btn-primary" style="line-height:35px;">{{f.left.floor}}<br /> </button>
+                        </div>
+
+                        <!-- right column -->
+                        <div ng-if='f.right.floor !== null' class="col-sm-5 col-md-5">
+                            <!--two buttons, one for if it is checked or if not removeFloor-->
+                            <button ng-click='addFloor(f.right.row, f.right.floor)' ng-hide='f.right.checked' class="btn btn-default" style="line-height:35px;">{{f.right.floor}}<br /> </button>
+                            <button ng-click='removeFloor(f.right.row, f.right.floor)' ng-show='f.right.checked' class="btn btn-primary" style="line-height:35px;">{{f.right.floor}}<br /> </button>
+                        </div>
+                        <div class="col-sm-1 col-md-1"></div>
+                    </div>
+                    <br />
+                </div>
+                <!--
+        Lobby Button
+    -->
+                <div class="row" style="line-height:45px;">
+                    <div class="col-sm-1 col-md-1"></div>
+                    <div class="col-sm-10 col-md-10">
+                        <button ng-click="addLobby()" ng-hide="lobbySelected" class="btn btn-default" style="line-height:35px;">Lobby</button>
+                        <button ng-click="remLobby()" ng-show="lobbySelected" class="btn btn-primary" style="line-height:35px;">Lobby</button>
+                    </div>
+                    <div class="col-sm-1 col-md-1"></div>
+                </div>
+                <br />
+                <br />
+
+
+                <!--
+         Open Close Doors Buttons
+    -->
+                <div class="row" style="line-height:45px;">
+                    <div class="col-sm-1 col-md-1"></div>
+                    <div class="col-sm-5 col-md-5">
+                        <button class="btn btn-default" style="line-height:35px;">
+                            <span class="glyphicon glyphicon-chevron-left"></span> | <span class="glyphicon glyphicon-chevron-right"></span>
+                        </button>
+                    </div>
+                    <div class="col-sm-5 col-md-5">
+                        <button class="btn btn-default" style="line-height:35px;">
+                            <span class="glyphicon glyphicon-chevron-right"></span> | <span class="glyphicon glyphicon-chevron-left"></span>
+                        </button>
+                    </div>
+                    <div class="col-sm-1 col-md-1"></div>
+                </div>
+                <div class="row">
+                    <br />
+                    <br />
+                </div>
+
+                <!--
+                   
+                    Handicap Button
+                
+                -->
+                <div class="row" style="line-height:45px;">
+                    <div class="col-sm-1 col-md-1"></div>
+                    <div class="col-sm-10 col-md-10">
+                        <button class="btn btn-primary" style="line-height:35px;">Press For Handicap Assistance</button>
+                    </div>
+                    <div class="col-sm-1 col-md-1"></div>
+                </div>
+
+
+
+
+                <div class="row">
+                    <br />
+                    <br />
+                </div>
+
+
+                <br />
+                <!--
+        Emergency Button
+    -->
+                <div class="row" style="line-height:45px;">
+                    <div class="col-sm-1 col-md-1"></div>
+                    <div class="col-sm-10 col-md-10">
+                        <button ng-click="emergency()" class="btn btn-danger" style="line-height:35px;">Emergency Button</button>
+                    </div>
+                    <div class="col-sm-1 col-md-1"></div>
+                </div>
+
+            </div>
+            <div ng-show="disableScreen">
+                <h1 style="text-align:center;color:red;">Police and fire on their way</h1>
+                <br /><br /><br />
+                <div style="align-content:center;">
+                    <h1>Enter code to reset</h1>
+                    <input ng-model="resetCode" />
+                    <button class="btn" ng-click="resetElevator()" style="width:20%;">press to reset elevator</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
