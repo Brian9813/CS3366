@@ -1,6 +1,13 @@
 # CS3366_HW1
 
+#URL
 https://brian9813.github.io/CS3366_HW1/hw1Interface.html
+
+
+
+
+#Presentation gif
+https://brian9813.github.io/CS3366_HW1/cs3366HW1Video.gif
 
 
 
