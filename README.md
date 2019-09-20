@@ -1,5 +1,8 @@
 # CS3366_HW1
 
+https://brian9813.github.io/CS3366_HW1/hw1Interface.html
+
+
 
 # C
 This design is actually not particularly bad, however there are a few things that I dislike about this.  First The taped over panel on
